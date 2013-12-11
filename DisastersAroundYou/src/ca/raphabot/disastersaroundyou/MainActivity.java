@@ -4,16 +4,21 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.google.android.gms.*;
+//import com.google.android.gms.maps.CameraUpdateFactory;
+//import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.gms.maps.MapFragment;
+//import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+//import com.google.android.gms.maps.model.LatLng;
+//import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.*;
 
 
 public class MainActivity extends Activity {
 
 	ListDisastersFragment listFragment;
 	ArrayList<String> disastersTitles = new ArrayList<String>();
-	// private GoogleMap googleMap;
+	private GoogleMap googleMap;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
