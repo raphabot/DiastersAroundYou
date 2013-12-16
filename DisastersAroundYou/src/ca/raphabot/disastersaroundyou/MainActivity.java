@@ -43,6 +43,7 @@ public class MainActivity extends Activity implements ListDisastersFragment.Comm
 		inflater.inflate(R.menu.main, menu);
 		return true;
 	}
+	
 	//Define the actions for the action bar buttons
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -81,6 +82,9 @@ public class MainActivity extends Activity implements ListDisastersFragment.Comm
 		listFragment = (ListDisastersFragment) manager.findFragmentById(R.id.list_fragment);
 		listFragment.setCommunicator(this);
 		mapFragment = (MapFragment) manager.findFragmentById(R.id.map);
+		if (mapFragment != null){
+			googleMap = mapFragment.getMap();
+		}
 		Log.d("DEBUG","wait for it...");
 		
 		
@@ -107,42 +111,6 @@ public class MainActivity extends Activity implements ListDisastersFragment.Comm
 		
 	}
 
-	/*
-	public void onItemClicked(int position) { 
-		//listFragment.showMap(position); 
-		Log.d("CLICKED!", "position: "+position);
-		try {
-			// Loading map
-			initilizeMap();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	} 
-	
-
-	private void initilizeMap() {
-		if (googleMap == null) {
-			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
-					R.id.map)).getMap();
-			googleMap.addMarker(new MarkerOptions()
-	        .position(new LatLng(0, 0))
-	        .title("Hello world"));
-
-			// check if map is created successfully or not
-			if (googleMap == null) {
-				Toast.makeText(getApplicationContext(),
-						"Sorry! unable to create maps", Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	public void onMapClicked(int position) {
-		CameraPosition cameraPosition = new CameraPosition.Builder().target(
-                new LatLng(17.385044, 78.486671)).zoom(12).build();
-		googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-	}*/
-
 
 	@Override
 	public void respond(int index) {
@@ -154,13 +122,7 @@ public class MainActivity extends Activity implements ListDisastersFragment.Comm
 			//Do whatever is necessary to the map
 			Log.d("ORIENTATION","Landscape");
 			googleMap = mapFragment.getMap();
-			for (int i = 0; i < markers.size(); i++){
-				googleMap.addMarker(markers.get(i));
-				googleMap.addCircle(circles.get(i));
-				
-			}
-			//googleMap.addMarker(new MarkerOptions().position(new LatLng(disaster.getLat(), disaster.getLng())).title(disaster.getDescription()));
-			CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(disaster.getLat(), disaster.getLng())).zoom(7).build();
+			CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(disaster.getLat(), disaster.getLng())).zoom(10).build();
 			googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 		}
 		else{
@@ -171,5 +133,5 @@ public class MainActivity extends Activity implements ListDisastersFragment.Comm
 		}
 		
 	}
-
+	
 }

@@ -67,6 +67,7 @@ public class ListDisastersFragment extends Fragment implements AdapterView.OnIte
 		disasters = ((MainActivity)myActivity).disasters;
 		markers = ((MainActivity)myActivity).markers;
 		circles = ((MainActivity)myActivity).circles;
+		//googleMap = ((MainActivity)myActivity).mapFragment.getMap();
 		
 		listView.setAdapter(adapter); 
 		listView.setOnItemClickListener(this); 
@@ -130,10 +131,22 @@ public class ListDisastersFragment extends Fragment implements AdapterView.OnIte
 					Log.d("JOSN", jsonArray.get(i).toString());
 					JSONObject jsonObject = jsonArray.getJSONObject(i);
 					Disaster disaster= new Disaster(jsonObject.getString("id"),jsonObject.getString("description"),jsonObject.getString("type"),jsonObject.getString("started"),jsonObject.getString("ended"),jsonObject.getString("lat"),jsonObject.getString("lng"),jsonObject.getString("radio"));
-					disastersTitles.add(disaster.getDescription());
+					disastersTitles.add(disaster.getDescription().substring(0, Math.min(10, disaster.getDescription().length())));
 					disasters.add(disaster);
-					
-					markers.add(new MarkerOptions().position(new LatLng(disaster.getLat(), disaster.getLng())).title(disaster.getDescription().substring(0, Math.min(10, disaster.getDescription().length()))));
+					String title = "";
+					switch(disaster.getType()){
+						case '0':
+							title = "Type: Flood";
+							break;
+						case '1':
+							title = "Type: Blizzard";
+							break;
+						default:
+							title = "Type: Other";
+							break;
+					}
+					String snippet = "Description: " + disaster.getDescription();
+					markers.add(new MarkerOptions().position(new LatLng(disaster.getLat(), disaster.getLng())).title(title).snippet(snippet));
 					circles.add(new CircleOptions().center(new LatLng(disaster.getLat(), disaster.getLng())).radius(disaster.getRadio()).strokeColor(Color.RED).fillColor(Color.TRANSPARENT));
 				}
 
@@ -162,8 +175,11 @@ public class ListDisastersFragment extends Fragment implements AdapterView.OnIte
 			if (googleMap != null){
 				for (int i = 0; i < markers.size(); i++){
 					googleMap.addMarker(markers.get(i));
+					googleMap.addCircle(circles.get(i));
+					
 				}
 			}
+			
 
 		}
 
