@@ -57,6 +57,10 @@
             android:name="ca.raphabot.disastersaroundyou.MapActivity"
             android:label="@string/title_activity_landscape" >
         </activity>
+        <activity
+            android:name="ca.raphabot.disastersaroundyou.AddDisasterActivity"
+            android:label="@string/title_activity_add_disaster" >
+        </activity>
     </application>
 
 </manifest>

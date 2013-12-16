@@ -20,12 +20,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +47,7 @@ public class ListDisastersFragment extends Fragment implements AdapterView.OnIte
 	ArrayAdapter<String> adapter;
 	ArrayList<Disaster> disasters;
 	ArrayList<MarkerOptions> markers;
+	ArrayList<CircleOptions> circles;
 	GoogleMap googleMap;
 
 	Activity myActivity;
@@ -63,6 +66,7 @@ public class ListDisastersFragment extends Fragment implements AdapterView.OnIte
 		//disastersTitles.add("teste");
 		disasters = ((MainActivity)myActivity).disasters;
 		markers = ((MainActivity)myActivity).markers;
+		circles = ((MainActivity)myActivity).circles;
 		
 		listView.setAdapter(adapter); 
 		listView.setOnItemClickListener(this); 
@@ -130,6 +134,7 @@ public class ListDisastersFragment extends Fragment implements AdapterView.OnIte
 					disasters.add(disaster);
 					
 					markers.add(new MarkerOptions().position(new LatLng(disaster.getLat(), disaster.getLng())).title(disaster.getDescription().substring(0, Math.min(10, disaster.getDescription().length()))));
+					circles.add(new CircleOptions().center(new LatLng(disaster.getLat(), disaster.getLng())).radius(disaster.getRadio()).strokeColor(Color.RED).fillColor(Color.TRANSPARENT));
 				}
 
 			}catch (Exception e){

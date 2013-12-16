@@ -7,12 +7,17 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -24,11 +29,35 @@ public class MainActivity extends Activity implements ListDisastersFragment.Comm
 	ArrayList<Disaster> disasters = new ArrayList<Disaster>();
 	ArrayList<String> disastersTitles = new ArrayList<String>();
 	ArrayList<MarkerOptions> markers = new ArrayList<MarkerOptions>();
+	ArrayList<CircleOptions> circles = new ArrayList<CircleOptions>();
 	GoogleMap googleMap;
 	
 	FragmentManager manager;
 	ListDisastersFragment listFragment;
 	MapFragment mapFragment;
+	
+	//Create the action bar
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		return true;
+	}
+	//Define the actions for the action bar buttons
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_add:
+			Intent intent = new Intent(this, AddDisasterActivity.class);
+			intent.putExtra("teste", "teste");
+			startActivity(intent);
+
+		default:
+			break;
+		}
+
+		return true;
+	} 
 
 	
 	public void onSaveInstanceState(Bundle savedState) {
@@ -127,6 +156,8 @@ public class MainActivity extends Activity implements ListDisastersFragment.Comm
 			googleMap = mapFragment.getMap();
 			for (int i = 0; i < markers.size(); i++){
 				googleMap.addMarker(markers.get(i));
+				googleMap.addCircle(circles.get(i));
+				
 			}
 			//googleMap.addMarker(new MarkerOptions().position(new LatLng(disaster.getLat(), disaster.getLng())).title(disaster.getDescription()));
 			CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(disaster.getLat(), disaster.getLng())).zoom(7).build();
