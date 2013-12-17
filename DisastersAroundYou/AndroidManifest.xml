@@ -36,7 +36,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="ca.raphabot.disastersaroundyou.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,11 +56,13 @@
 
         <activity
             android:name="ca.raphabot.disastersaroundyou.MapActivity"
-            android:label="@string/title_activity_landscape" >
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="ca.raphabot.disastersaroundyou.AddDisasterActivity"
-            android:label="@string/title_activity_add_disaster" >
+            android:label="Add a New Disaster" 
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 

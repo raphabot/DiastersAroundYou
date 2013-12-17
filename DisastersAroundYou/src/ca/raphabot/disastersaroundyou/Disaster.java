@@ -2,7 +2,10 @@ package ca.raphabot.disastersaroundyou;
 
 import java.sql.Timestamp;
 
-public class Disaster {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Disaster implements Parcelable{
 	private int id;
 	private String description;
 	private int type;
@@ -92,5 +95,48 @@ public class Disaster {
 		int id = this.id;
 		return String.valueOf(id);
 	}
+
+	// The following methods that are required for using Parcelable
+	private Disaster(Parcel in) {
+        // This order must match the order in writeToParcel()
+        id = Integer.parseInt(in.readString());
+		description = in.readString();
+		type = Integer.parseInt(in.readString());
+		started = (Timestamp.valueOf(in.readString()));
+		ended = (Timestamp.valueOf(in.readString()));;
+		lat = Double.parseDouble(in.readString());
+		lng = Double.parseDouble(in.readString());
+		radio = Double.parseDouble(in.readString());
+        
+    }
+	
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeInt(id);
+		out.writeString(description);
+		out.writeInt(type);
+		out.writeValue(null);
+		out.writeString(null);
+		out.writeDouble(lat);
+		out.writeDouble(lng);
+		out.writeDouble(radio);
+	}
+	
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+    // Just cut and paste this for now
+    public static final Parcelable.Creator<Disaster> CREATOR = new Parcelable.Creator<Disaster>() {
+        public Disaster createFromParcel(Parcel in) {
+            return new Disaster(in);
+        }
+
+        public Disaster[] newArray(int size) {
+            return new Disaster[size];
+        }
+    };
 
 }

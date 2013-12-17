@@ -1,5 +1,6 @@
 package ca.raphabot.disastersaroundyou;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +18,13 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import com.google.android.maps.GeoPoint;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +40,8 @@ public class AddDisasterActivity extends Activity {
 	String description;
 	int radius;
 	int type;
+	double lat;
+	double lng;
 	Activity thisActivity = this;
 	
 	@Override
@@ -91,6 +98,27 @@ public class AddDisasterActivity extends Activity {
 		//Spinner spinner = (Spinner)findViewById(R.id.spinner_type);
 		//type = spinner.getSelectedItemPosition();
 		
+		Geocoder coder = new Geocoder(this);
+    	List<Address> address;
+
+    	EditText editableAddress = (EditText) findViewById(R.id.editableAddress);
+    	String addressName = editableAddress.getText().toString();
+    	
+    	try {
+    		address = coder.getFromLocationName(addressName,5);
+    		if (address != null) {
+    			Address location = address.get(0);
+        		lat = location.getLatitude();
+        		lng = location.getLongitude();
+    		}
+    		
+
+    		
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+		
 		//Get the data
 		DoPost mDoPost = new DoPost(this,"-1");
 		mDoPost.execute("");
@@ -116,6 +144,8 @@ public class AddDisasterActivity extends Activity {
 				nameValuePairs.add(new BasicNameValuePair("Description", description));
 				nameValuePairs.add(new BasicNameValuePair("Radio", String.valueOf(radius)));
 				nameValuePairs.add(new BasicNameValuePair("Type", String.valueOf(type)));
+				nameValuePairs.add(new BasicNameValuePair("Lat", String.valueOf(lat)));
+				nameValuePairs.add(new BasicNameValuePair("Lng", String.valueOf(lng)));
 				
 				//Add more parameters as necessary
 

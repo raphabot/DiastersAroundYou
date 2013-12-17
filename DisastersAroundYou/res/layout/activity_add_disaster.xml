@@ -8,25 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AddDisasterActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Add new Disaster"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="20dp"
-        android:text="Description:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <EditText
         android:id="@+id/editable_disaster_description"
         android:layout_width="wrap_content"
@@ -38,16 +19,6 @@
         android:inputType="textMultiLine"
         android:text="Enter with the description of the Disaster here..." />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editable_disaster_description"
-        android:layout_marginTop="24dp"
-        android:text="Radius:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <EditText
         android:id="@+id/editable_radius"
         android:layout_width="wrap_content"
@@ -55,32 +26,60 @@
         android:layout_alignBaseline="@+id/textView3"
         android:layout_alignBottom="@+id/textView3"
         android:layout_alignRight="@+id/editable_disaster_description"
+        android:layout_toRightOf="@+id/textView2"
         android:ems="10"
         android:inputType="number"
         android:text="100" />
 
-    <Button
-        android:id="@+id/add_button"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/spinner1"
+        android:text="Description:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editableAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="Add" />
+        android:layout_below="@+id/editable_radius"
+        android:layout_toRightOf="@+id/textView2"
+        android:ems="10" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/add_button"
-        android:layout_alignLeft="@+id/textView3"
-        android:text="The Disaster will be created with the main point being your actual location"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_alignBaseline="@+id/editableAddress"
+        android:layout_alignBottom="@+id/editableAddress"
+        android:layout_alignLeft="@+id/spinner1"
+        android:text="Address:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editable_disaster_description"
+        android:layout_below="@+id/editable_disaster_description"
+        android:text="Radius:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_centerVertical="true" />
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/spinner1"
+        android:layout_below="@+id/spinner1"
+        android:text="Add" />
 
 </RelativeLayout>

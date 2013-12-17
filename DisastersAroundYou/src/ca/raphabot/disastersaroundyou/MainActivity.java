@@ -16,7 +16,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -24,7 +23,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends Activity implements ListDisastersFragment.Communicator{
 
-	private static String KEY_TITLES = "TitlesKey";
+	public static String KEY_TITLES = "TitlesKey";
+	public static String MARKERS = "MarkersKey";
+	public static String DISASTERS = "DisastersKey";
 	
 	ArrayList<Disaster> disasters = new ArrayList<Disaster>();
 	ArrayList<String> disastersTitles = new ArrayList<String>();
@@ -109,6 +110,10 @@ public class MainActivity extends Activity implements ListDisastersFragment.Comm
 		*/
 		
 		
+    	
+    	    
+    	
+    	
 	}
 
 
@@ -128,7 +133,10 @@ public class MainActivity extends Activity implements ListDisastersFragment.Comm
 		else{
 			//Portrait orientation
 			Intent intent = new Intent(this, MapActivity.class);
-			intent.putExtra("teste", "teste");
+			//intent.putExtra("teste", "teste");
+			intent.putParcelableArrayListExtra(DISASTERS, disasters);
+			//Log.d("Parcea");
+			//intent.put
 			startActivity(intent);
 		}
 		

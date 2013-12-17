@@ -131,7 +131,7 @@ public class ListDisastersFragment extends Fragment implements AdapterView.OnIte
 					Log.d("JOSN", jsonArray.get(i).toString());
 					JSONObject jsonObject = jsonArray.getJSONObject(i);
 					Disaster disaster= new Disaster(jsonObject.getString("id"),jsonObject.getString("description"),jsonObject.getString("type"),jsonObject.getString("started"),jsonObject.getString("ended"),jsonObject.getString("lat"),jsonObject.getString("lng"),jsonObject.getString("radio"));
-					disastersTitles.add(disaster.getDescription().substring(0, Math.min(10, disaster.getDescription().length())));
+					disastersTitles.add(disaster.getDescription().substring(0, Math.min(40, disaster.getDescription().length())));
 					disasters.add(disaster);
 					String title = "";
 					switch(disaster.getType()){
